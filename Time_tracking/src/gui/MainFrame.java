@@ -19,10 +19,9 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private EmployeePanel employeePanel;
+	private MainPanel mainPanel;
 	private DBConnection connect;
 	
-	
-
 	/**
 	 * Create the frame.
 	 */
@@ -37,9 +36,9 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		
-		employeePanel = new EmployeePanel(connect);
-		employeePanel.init();
-		add(employeePanel, BorderLayout.CENTER);
+		mainPanel = new MainPanel(connect);
+		mainPanel.init();
+		add(mainPanel, BorderLayout.CENTER);
 		
 		//connect.finalize();
 		
