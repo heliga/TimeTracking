@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
 		setTitle("Time tracking");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(600, 400));
+		//setPreferredSize(new Dimension(300, 400));
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		

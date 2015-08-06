@@ -30,11 +30,7 @@ public class EmployeePanel extends JPanel implements Runnable {
 	private JButton deleteButton = new JButton("Удалить");
 	private JButton clearButton = new JButton("Очистить");
 	private JButton changeButton = new JButton("Изменить");
-	/*
-	private JTextField cardIdTextField = new JTextField("card number");
-	private JButton inButton  = new JButton("Войти");
-	private JButton outButton = new JButton("Выйти");
-	 */
+	
 	private DBConnection connect;
 
 	public EmployeePanel(){
@@ -78,19 +74,6 @@ public class EmployeePanel extends JPanel implements Runnable {
 		
 		clearButton.addActionListener(new clearButtonActionListener());
 		
-		/*
-		add(cardIdTextField, new GridBagConstraints(0, 2, 4, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.CENTER, 
-				new Insets(1, 1, 1, 1), 0, 0));
-
-		add(inButton, new GridBagConstraints(1, 4, 2, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.CENTER, 
-				new Insets(1, 1, 1, 1), 0, 0));
-
-		add(outButton, new GridBagConstraints(2, 4, 2, 1, 1, 1,
-				GridBagConstraints.NORTH, GridBagConstraints.CENTER, 
-				new Insets(1, 1, 1, 1), 0, 0));
-		 */
 	}
 
 	@Override
@@ -105,14 +88,6 @@ public class EmployeePanel extends JPanel implements Runnable {
 			}
 		}
 
-	}
-
-	class addButtonActionListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			
-
-		}
 	}
 
 	class deleteButtonActionListener implements ActionListener {
