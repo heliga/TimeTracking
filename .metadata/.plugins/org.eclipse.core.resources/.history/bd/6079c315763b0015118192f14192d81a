@@ -1,0 +1,13 @@
+package gui;
+
+import javax.swing.JPanel;
+
+public class MainPanel extends JPanel implements Runnable {
+
+	@Override
+	public void run() {
+		
+		
+	}
+
+}

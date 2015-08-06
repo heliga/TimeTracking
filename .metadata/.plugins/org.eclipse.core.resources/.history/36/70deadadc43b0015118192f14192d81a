@@ -1,0 +1,167 @@
+package gui;
+
+import gui.EmployeePanel.addButtonActionListener;
+import gui.tableModel.EmployeeComboBoxModel;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import database.DBConnection;
+
+import javax.swing.JComboBox;
+
+public class MainPanel extends JPanel implements Runnable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4118100197599717089L;
+	
+	private EmployeeComboBoxModel employeeComboBoxModel = new EmployeeComboBoxModel();
+	private JComboBox<String> employeeComboBox = new JComboBox<String>(employeeComboBoxModel);
+	private JLabel employeeLabel = new JLabel();
+	private JButton addButton = new JButton("Добавить сотрудника");
+	private JButton inButton = new JButton("IN");
+	private JButton outButton = new JButton("OUT");
+	private JButton exitButton = new JButton("Выход");
+	
+	private DBConnection connect;
+	
+	public MainPanel(){
+		
+	}
+
+	public MainPanel(DBConnection connect){
+		this.connect = connect;
+		setLayout(new GridBagLayout());
+		
+		(new Thread(this)).start();
+				
+	}
+
+	public void init(){
+		
+		employeeComboBoxModel.addElement(connect);
+		employeeComboBox.setEditable(true);
+		employeeComboBox.setMaximumRowCount(5);
+		employeeComboBox.setSelectedIndex(0);
+		
+		add(employeeComboBox, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		employeeComboBox.addActionListener(new employeeComboBoxActionListener());
+		
+		add(employeeLabel, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		add(addButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		addButton.addActionListener(new addButtonActionListener());
+		
+		add(inButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		inButton.addActionListener(new inButtonActionListener());
+		
+		add(outButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		outButton.addActionListener(new outButtonActionListener());
+		
+		add(exitButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		exitButton.addActionListener(new exitButtonActionListener());
+		
+	}
+	
+	public String getEmployeeName(DBConnection connect){
+		String employeeName = "";
+		ResultSet rs = connect.resultSetQuery("SELECT name, lastname FROM employee, time_card WHERE card_id = " 
+												+  (int) employeeComboBoxModel.getSelectedItem()
+												+ " and time_card.employee_id = employee.employee_id;");
+		try {
+			while (rs.next()){
+				employeeName = rs.getString("name") + " " + rs.getString("lastname");
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return employeeName;
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				employeeLabel.setText(getEmployeeName(connect));
+				
+				repaint();
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
+	class addButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class inButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class outButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class exitButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class employeeComboBoxActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+
+	
+
+}

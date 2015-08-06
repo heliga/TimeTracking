@@ -1,0 +1,136 @@
+package gui;
+
+import gui.EmployeePanel.addButtonActionListener;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import database.DBConnection;
+import javax.swing.JComboBox;
+
+public class MainPanel extends JPanel implements Runnable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4118100197599717089L;
+	
+	private JComboBox<String> employeeComboBox;
+	private JButton addButton = new JButton("Добавить сотрудника");
+	private JButton inButton = new JButton("IN");
+	private JButton outButton = new JButton("OUT");
+	private JButton exitButton = new JButton("Выход");
+	
+	private DBConnection connect;
+	
+	public MainPanel(){
+		
+	}
+
+	public MainPanel(DBConnection connect){
+		this.connect = connect;
+		setLayout(new GridBagLayout());
+		
+		(new Thread(this)).start();
+	}
+
+	public void init(){
+		
+		String [] string = {
+			"Olga",
+			"Nick",
+			"Sasha"
+		};
+
+		employeeComboBox = new JComboBox<String>(string);
+		
+		add(employeeComboBox, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		employeeComboBox.addActionListener(new employeeComboBoxActionListener());
+		
+		add(addButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		addButton.addActionListener(new addButtonActionListener());
+		
+		add(inButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		inButton.addActionListener(new inButtonActionListener());
+		
+		add(outButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		outButton.addActionListener(new outButtonActionListener());
+		
+		add(exitButton, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, 
+				new Insets(1, 1, 1, 1), 0, 0));
+		
+		exitButton.addActionListener(new exitButtonActionListener());
+		
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				repaint();
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	class addButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class inButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class outButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class exitButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+	
+	class employeeComboBoxActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+
+		}
+	}
+
+}

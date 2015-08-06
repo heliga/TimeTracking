@@ -1,0 +1,9 @@
+package gui.tableModel;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.ListDataListener;
+
+public class EmployeeComboBoxModel extends DefaultComboBoxModel<String> {
+
+}
