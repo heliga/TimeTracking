@@ -18,7 +18,6 @@ public class MainFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private EmployeePanel employeePanel;
 	private MainPanel mainPanel;
 	private DBConnection connect;
 	
@@ -32,7 +31,7 @@ public class MainFrame extends JFrame {
 		setTitle("Time tracking");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setPreferredSize(new Dimension(300, 400));
+		setPreferredSize(new Dimension(300, 400));
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		

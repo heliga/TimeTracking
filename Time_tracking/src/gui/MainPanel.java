@@ -2,14 +2,20 @@ package gui;
 
 import gui.tableModel.EmployeeComboBoxModel;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+
+
+
+
+
+
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +24,9 @@ import database.DBConnection;
 
 import javax.swing.JComboBox;
 
+import net.miginfocom.swing.MigLayout;
+
+
 public class MainPanel extends JPanel implements Runnable {
 	/**
 	 * 
@@ -25,6 +34,7 @@ public class MainPanel extends JPanel implements Runnable {
 	private static final long serialVersionUID = -4118100197599717089L;
 	
 	private EmployeeComboBoxModel employeeComboBoxModel = new EmployeeComboBoxModel();
+	private JLabel titleLabel = new JLabel("Выберите сотрудника:");
 	private JComboBox<String> employeeComboBox = new JComboBox<String>(employeeComboBoxModel);
 	private JLabel employeeLabel = new JLabel();
 	private JButton addButton = new JButton("Добавить сотрудника");
@@ -35,18 +45,12 @@ public class MainPanel extends JPanel implements Runnable {
 	private DBConnection connect;
 	
 	public MainPanel(){
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0};
-		gridBagLayout.rowHeights = new int[]{0};
-		gridBagLayout.columnWeights = new double[]{Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{Double.MIN_VALUE};
-		setLayout(gridBagLayout);
-		
+				
 	}
 
 	public MainPanel(DBConnection connect){
 		this.connect = connect;
-		setLayout(new GridBagLayout());
+		setLayout(new MigLayout("insets 50", "[left]40[right]", "[][]20[]20[]40[]40[]"));
 		
 		(new Thread(this)).start();
 				
@@ -54,40 +58,26 @@ public class MainPanel extends JPanel implements Runnable {
 
 	public void init(){
 		
+		add(titleLabel, "wrap, span 2, center");
+		
 		employeeComboBoxModel.addElement(connect);
 		employeeComboBox.setMaximumRowCount(5);
 		employeeComboBox.setSelectedIndex(0);
 		
-		add(employeeComboBox, new GridBagConstraints(2, 1, 2, 1, 0.0, 0.9,
-				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, 
-				new Insets(1, 1, 1, 1), 0, 0));
+		add(employeeComboBox, "wrap, span 2, center");
 		
-		add(employeeLabel, new GridBagConstraints(2, 2, 2, 1, 0.0, 0.9,
-				GridBagConstraints.NORTH, GridBagConstraints.CENTER, 
-				new Insets(0, 0, 0, 0), 0, 0));
+		add(employeeLabel, "wrap, span 2, center");
 		
-		add(addButton, new GridBagConstraints(2, 3, 2, 1, 0.0, 0.9,
-				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, 
-				new Insets(0, 0, 0, 0), 0, 0));
-		
+		add(addButton, "wrap, span 2, center");
 		addButton.addActionListener(new addButtonActionListener());
 		
-		add(inButton, new GridBagConstraints(1, 4, 2, 1, 0.0, 0.9,
-				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, 
-				new Insets(0, 0, 0, 0), 0, 0));
-		
+		add(inButton);
 		inButton.addActionListener(new inButtonActionListener());
 		
-		add(outButton, new GridBagConstraints(3, 4, 2, 1, 0.0, 0.9,
-				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, 
-				new Insets(0, 0, 0, 0), 0, 0));
-		
+		add(outButton, "wrap");
 		outButton.addActionListener(new outButtonActionListener());
 		
-		add(exitButton, new GridBagConstraints(2, 5, 2, 1, 0.0, 0.9,
-				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, 
-				new Insets(0, 0, 0, 0), 0, 0));
-		
+		add(exitButton, "span 2, center");
 		exitButton.addActionListener(new exitButtonActionListener());
 		
 	}
@@ -126,21 +116,10 @@ public class MainPanel extends JPanel implements Runnable {
 	class inButtonActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			ResultSet rs = connect.resultSetQuery("SELECT time_out FROM time_tracking WHERE card_id = " 
-					+  Integer.parseInt((String) employeeComboBoxModel.getSelectedItem())
-					+ " ORDER BY time_in LIMIT 1;");
-			try {
-				if (rs.next()) {
-					connect.sqlQuery("INSERT INTO time_tracking(card_id, time_in) VALUES (" 
-									+ Integer.parseInt((String) employeeComboBoxModel.getSelectedItem())
-									+ ", datetime('now'));");
-				}
-				else {
-					
-				}
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			
+			connect.sqlQuery("INSERT INTO time_tracking(card_id, time_in) VALUES (" 
+							+ Integer.parseInt((String) employeeComboBoxModel.getSelectedItem())
+							+ ", datetime('now'));");
 			
 				
 			
@@ -151,21 +130,10 @@ public class MainPanel extends JPanel implements Runnable {
 	class outButtonActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			ResultSet rs = connect.resultSetQuery("SELECT time_out FROM time_tracking WHERE card_id = " 
-					+  Integer.parseInt((String) employeeComboBoxModel.getSelectedItem())
-					+ " ORDER BY time_in LIMIT 1;");
-			try {
-				if (rs.next()) {
-					connect.sqlQuery("UPDATE time_tracking SET time_out = datetime('now') WHERE card_id = " 
-									+ Integer.parseInt((String) employeeComboBoxModel.getSelectedItem())
-									+ " AND time_out IS NULL;");
-				}
-				else {
-					
-				}
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			
+			connect.sqlQuery("UPDATE time_tracking SET time_out = datetime('now') WHERE card_id = " 
+							+ Integer.parseInt((String) employeeComboBoxModel.getSelectedItem())
+							+ " AND time_out IS NULL;");
 
 		}
 	}
