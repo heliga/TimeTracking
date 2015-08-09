@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 import database.DBConnection;
 
@@ -54,7 +53,7 @@ public class EmployeePanel extends JPanel implements Runnable {
 				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, 
 				new Insets(1, 1, 1, 1), 0, 0));
 		
-		addButton.addActionListener(new addButtonActionListener());
+		addButton.addActionListener(new AddButtonActionListener());
 		
 		add(deleteButton, new GridBagConstraints(1, 1, 1, 1, 1, 1,
 				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, 
@@ -88,6 +87,17 @@ public class EmployeePanel extends JPanel implements Runnable {
 			}
 		}
 
+	}
+	
+	class AddButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			
+			AddEmployeeFrame addEmployeeFrame = new AddEmployeeFrame(connect);
+			addEmployeeFrame.setVisible(true);
+			addEmployeeFrame.init();
+			//addEmployeeFrame.pack();
+		}
 	}
 
 	class deleteButtonActionListener implements ActionListener {

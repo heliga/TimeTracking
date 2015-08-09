@@ -4,6 +4,8 @@ import gui.MainFrame;
 
 import java.awt.EventQueue;
 
+
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -14,7 +16,7 @@ public class Main {
 				MainFrame frame = new MainFrame();
 				frame.setVisible(true);
 				frame.pack();
-				
+								
 			}
 		});
 		
